@@ -6,8 +6,10 @@ import {
   endSessionEarly,
   emergencyExit,
   getExtensionState,
+  getExtensionVersion,
   isExtensionAvailable,
   startExtensionSession,
+  subscribeExtensionAvailability,
   syncSettings,
 } from '../utils/bridge';
 
@@ -80,6 +82,20 @@ export function useFocusStore() {
     refresh();
   }, [refresh]);
 
+  // Event-driven detection: when the newly installed/reloaded extension says
+  // hello, flip to connected immediately and pull the current state.
+  useEffect(() => {
+    const unsubscribe = subscribeExtensionAvailability((available) => {
+      if (available) {
+        setExtensionAvailable(true);
+        void refresh();
+      } else {
+        setExtensionAvailable(false);
+      }
+    });
+    return unsubscribe;
+  }, [refresh]);
+
   // Keep in sync while a session runs, and when the tab regains focus.
   useEffect(() => {
     if (!session) return;
@@ -143,6 +159,7 @@ export function useFocusStore() {
 
   return {
     extensionAvailable,
+    extensionVersion: extensionAvailable ? getExtensionVersion() : null,
     session,
     stats,
     settings,

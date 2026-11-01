@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>FocusLock</title>
+  </head>
+  <body>
+    <header>
+      <span class="logo"></span>
+      <span class="title">FocusLock</span>
+    </header>
+
+    <main id="content">
+      <div id="no-session">
+        <p class="muted">No active session.</p>
+        <button id="start-btn" class="primary">Start Focus Session</button>
+        <p class="hint">Opens the FocusLock dashboard on localhost:5173</p>
+      </div>
+
+      <div id="session" hidden>
+        <p class="label">FOCUS MODE ACTIVE</p>
+        <p id="timer" class="timer">--:--</p>
+        <p class="muted" id="blocked-count">0 websites blocked</p>
+        <ul id="domain-list"></ul>
+        <button id="dashboard-btn" class="secondary">Open Dashboard</button>
+        <button id="end-btn" class="secondary danger">End Session</button>
+        <p class="hint">Ending early requires the Escape Challenge on the dashboard.</p>
+      </div>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

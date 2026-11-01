@@ -18,8 +18,28 @@ const ALLOWED_TYPES = new Set([
   'UPDATE_SETTINGS',
 ]);
 
-// The connector only runs on the FocusLock dashboard origin (localhost:5173).
+// The connector only runs on origins whitelisted in manifest.json. The
+// dashboard origin is whatever page this script was injected into.
 const TRUSTED_ORIGIN = window.location.origin;
+
+/** Broadcast a lightweight hello so an already-open dashboard flips to
+ * "Connected" immediately after the extension is installed/reloaded.
+ * Handshake only — carries no session data. */
+function announce() {
+  window.postMessage(
+    { source: EXT_SOURCE, kind: 'HELLO', version: chrome.runtime.getManifest().version },
+    window.location.origin,
+  );
+}
+
+// Retry a few times to beat script-eval ordering (web bundle may load late).
+[0, 150, 500, 1500, 4000].forEach((delay) => {
+  if (delay === 0) {
+    announce();
+  } else {
+    window.setTimeout(announce, delay);
+  }
+});
 
 window.addEventListener('message', (event: MessageEvent) => {
   if (event.source !== window || event.origin !== TRUSTED_ORIGIN) return;

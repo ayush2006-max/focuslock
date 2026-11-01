@@ -53,6 +53,7 @@ export default function App() {
         onNavigate={navigate}
         activeSession={store.session != null}
         extensionAvailable={store.extensionAvailable}
+        extensionVersion={store.extensionVersion}
       />
       {view === 'landing' && <Landing store={store} onNavigate={navigate} />}
       {view === 'setup' && <Setup store={store} onNavigate={navigate} />}

@@ -296,3 +296,8 @@ chrome.runtime.onInstalled.addListener(() => {
     await checkCompletion();
   })();
 });
+
+// The MV3 service worker is restarted aggressively by Chrome. Top-level code
+// runs on every wake-up, so verify session state / blocking rules each time.
+// This is what keeps blocking alive after a browser restart (requirement 6).
+void checkCompletion();

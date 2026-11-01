@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { useTheme } from '../hooks/useTheme';
+import { InstallGuide } from './InstallGuide';
 
 type View = 'landing' | 'setup' | 'active' | 'complete' | 'stats' | 'settings';
 
@@ -37,12 +39,14 @@ export function ThemeToggle() {
   );
 }
 
-export function Header({ view, onNavigate, activeSession, extensionAvailable }: {
+export function Header({ view, onNavigate, activeSession, extensionAvailable, extensionVersion }: {
   view: View;
   onNavigate: (view: View) => void;
   activeSession: boolean;
   extensionAvailable: boolean | null;
+  extensionVersion?: string | null;
 }) {
+  const [installGuideOpen, setInstallGuideOpen] = useState(false);
   return (
     <header className="sticky top-0 z-30 border-b border-zinc-200/60 bg-surface-50/80 backdrop-blur-md dark:border-white/5 dark:bg-surface-950/75">
       <div className="mx-auto flex max-w-5xl items-center gap-3 px-6 py-3.5">
@@ -88,13 +92,32 @@ export function Header({ view, onNavigate, activeSession, extensionAvailable }: 
             Focus Mode
           </button>
         )}
+        {extensionAvailable === true && (
+          <span
+            className="ml-2 hidden items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-600 sm:flex dark:text-emerald-400"
+            title={extensionVersion ? `FocusLock extension v${extensionVersion}` : 'FocusLock extension connected'}
+          >
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            Connected
+            {extensionVersion ? <span className="font-normal opacity-70">v{extensionVersion}</span> : null}
+          </span>
+        )}
       </div>
 
       {extensionAvailable === false && (
-        <div className="border-t border-amber-200/70 bg-amber-50 px-6 py-2 text-center text-xs text-amber-800 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300">
-          The FocusLock browser extension is not connected — website blocking is unavailable until it is installed and enabled.
+        <div className="flex flex-col items-center justify-center gap-2 border-t border-amber-200/70 bg-amber-50 px-6 py-2.5 text-center text-xs text-amber-800 sm:flex-row dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-300">
+          <span>
+            The FocusLock browser extension is not connected — website blocking is unavailable until it is installed and enabled.
+          </span>
+          <button
+            onClick={() => setInstallGuideOpen(true)}
+            className="shrink-0 rounded-lg bg-amber-500/15 px-2.5 py-1 font-semibold text-amber-800 underline-offset-2 transition hover:bg-amber-500/25 dark:text-amber-200"
+          >
+            How to install
+          </button>
         </div>
       )}
+      <InstallGuide open={installGuideOpen} onClose={() => setInstallGuideOpen(false)} />
     </header>
   );
 }
