@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="blocked.css" />
+    <title>Blocked — FocusLock</title>
+  </head>
+  <body>
+    <main>
+      <div class="glow" aria-hidden="true"></div>
+      <div class="card">
+        <p class="kicker">FOCUS MODE</p>
+        <h1>Stay on track.</h1>
+        <p class="sub">This website is currently blocked during your Focus Session.</p>
+
+        <div class="timer-wrap">
+          <span id="timer" class="timer">--:--</span>
+          <span class="label">Remaining time</span>
+        </div>
+
+        <p class="blocked">Blocked: <strong id="domain">this website</strong></p>
+
+        <button id="back-btn">Back to Focus</button>
+        <p class="hint">FocusLock does not track what you browse. Nothing is recorded.</p>
+      </div>
+    </main>
+    <script src="blocked.js"></script>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+:root {
+  color-scheme: dark;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Inter, system-ui, sans-serif;
+  background: #0b0b12;
+  color: #f4f4f5;
+  min-height: 100vh;
+}
+main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.glow {
+  position: absolute;
+  top: 18%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.22);
+  filter: blur(120px);
+  animation: breathe 5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.45;
+  }
+}
+.card {
+  position: relative;
+  text-align: center;
+  max-width: 460px;
+  width: 100%;
+  animation: rise 0.6s ease-out both;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: #818cf8;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 10px 0 6px;
+}
+.sub {
+  color: #a1a1aa;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.timer-wrap {
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-size: 56px;
+  font-weight: 800;
+  background: linear-gradient(120deg, #a5b4fc, #f0abfc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #71717a;
+}
+.blocked {
+  font-size: 13px;
+  color: #a1a1aa;
+}
+.blocked strong {
+  color: #e4e4e7;
+  word-break: break-all;
+}
+#back-btn {
+  margin-top: 26px;
+  padding: 11px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e4e4e7;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+#back-btn:hover {
+  border-color: rgba(129, 140, 248, 0.6);
+  color: #a5b4fc;
+}
+.hint {
+  margin-top: 22px;
+  font-size: 11px;
+  color: #52525b;
+}
