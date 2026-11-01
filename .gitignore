@@ -4,3 +4,6 @@ dist/
 .DS_Store
 extension/dist
 web/dist
+
+# Local Netlify folder
+.netlify

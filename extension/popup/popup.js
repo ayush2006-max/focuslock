@@ -12,7 +12,7 @@ const dashboardBtn = document.getElementById('dashboard-btn');
 const endBtn = document.getElementById('end-btn');
 
 const DASHBOARD_URL_KEY = 'focuslock:dashboardUrl';
-let DASHBOARD_URL = 'http://localhost:5173';
+let DASHBOARD_URL = 'https://focuslock-app-963.netlify.app';
 
 chrome.storage.local.get(DASHBOARD_URL_KEY).then((result) => {
   if (result[DASHBOARD_URL_KEY]) DASHBOARD_URL = result[DASHBOARD_URL_KEY];

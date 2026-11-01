@@ -5,6 +5,8 @@ Choose exactly which websites distract you, choose how long you want to focus, a
 extension blocks those sites until your timer runs out. No backend, no accounts,
 no browsing history — everything stays on your device.
 
+**Live dashboard:** https://focuslock-app-963.netlify.app (deployed via Netlify)
+
 > A normal web app cannot block other websites. The blocking is performed by the
 > extension using only `declarativeNetRequest` rules — no content inspection,
 > no tracking, only the domains you explicitly select.
@@ -20,11 +22,22 @@ focuslock/
 
 ## 1. Run the dashboard
 
+Either use the live site (**https://focuslock-app-963.netlify.app**) or run locally:
+
 ```bash
 cd web
 npm install
-npm run dev            # http://localhost:5173  (port must stay fixed)
+npm run dev            # http://localhost:5173  (dev login code flows not needed)
 ```
+
+## Security notes
+
+- `npm audit` clean in both packages (Vite 8 upgraded to fix GHSA-67mh-4wv8-2f99).
+- The extension connector runs **only** on the dashboard origins listed in
+  `manifest.json` (localhost:5173 + the deployed Netlify domain) and relays a
+  strict whitelist of message types — any other script on the page is ignored.
+- Blocked domains are strictly validated before becoming DNR rules; blocked-page
+  output uses `textContent` only (no HTML injection sinks anywhere).
 
 ## 2. Build & load the extension
 
